@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Student {
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password    String
+  avgScore    Float        @default(0)
+  createdAt   DateTime     @default(now())
+  isAdmin     Boolean      @default(false)
+  
+  submissions Submission[]
+}
+
+model Subject {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  
+  // A subject has many assignments (both tests and homework)
+  assignments Assignment[]
+}
+
+enum AssignmentType {
+  TEST
+  HOMEWORK
+}
+
+enum InputMode {
+  TEXT
+  PDF
+}
+
+// 1. The Unified Assignment Model (Replaces 'Test')
+model Assignment {
+  id          Int            @id @default(autoincrement())
+  title       String
+  type        AssignmentType // TEST or HOMEWORK
+  inputMode   InputMode      // TEXT or PDF
+  maxScore    Float          @default(100)
+  
+  textContent String?        @db.Text 
+  fileUrl     String?        // e.g., "/uploads/chapter5.pdf"
+  
+  subjectId   Int
+  subject     Subject        @relation(fields: [subjectId], references: [id])
+  
+  createdAt   DateTime       @default(now())
+  
+  // An assignment will have many student submissions
+  submissions Submission[]
+}
+
+// 2. The Junction Table (Tracks results for both Tests and Homework)
+model Submission {
+  id           Int        @id @default(autoincrement())
+  score        Float
+  studentFileUrl String?  // Add this field to store the student's uploaded work
+  
+  studentId    Int
+  student      Student    @relation(fields: [studentId], references: [id])
+  
+  assignmentId Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  
+  createdAt    DateTime   @default(now())
+
+  // Ensures a student cannot submit two scores for the exact same assignment
+  @@unique([studentId, assignmentId]) 
+}

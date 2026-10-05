@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  /* Keep your other theme variables here */
+}
+
+/* Rest of your custom CSS / styles */
