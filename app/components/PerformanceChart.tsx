@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend 
 } from 'recharts';
@@ -8,9 +7,7 @@ import {
 export interface PerformanceDataPoint {
   day:string,
   overall: number;
-  math: number;
-  history: number;
-  science: number;
+  marks:Record<string,number>;
 }
 
 interface PerformanceChartProps {
@@ -18,17 +15,28 @@ interface PerformanceChartProps {
 }
 
 const DUMMY_DATA: PerformanceDataPoint[] = [
-  { day: 'day 1', overall: 50, math: 10, history: 42, science: 35 },
-  { day: 'day 2', overall: 60, math: 45, history: 30, science: 55 },
-  { day: 'day 3', overall: 65, math: 60, history: 50, science: 45 },
-  { day: 'day 4', overall: 60, math: 55, history: 50, science: 40 },
-  { day: 'day 5', overall: 59, math: 45, history: 30, science: 40 },
-  { day: 'day 6', overall: 70, math: 75, history: 60, science: 63 },
-  { day: 'day 7', overall: 73, math: 68, history: 78, science: 55 },
+  { day: 'day 2', overall: 50, marks:{"history":15,"math":10,"hindi":100} },
+  { day: 'day 1', overall: 40, marks:{"history":10,"math":20,"hindi":30} },
+  { day: 'day 2', overall: 50, marks:{"history":15,"math":10,} },
+  { day: 'day 2', overall: 50, marks:{"history":15,"math":10,"hindi":100} },
+  { day: 'day 2', overall: 50, marks:{"history":15,"math":10,"hindi":100} },
 ];
 
 export function PerformanceChart({ data }: PerformanceChartProps) {
-  const chartData = DUMMY_DATA;
+  const rawChartData = DUMMY_DATA;
+  const chartData = rawChartData.map((data) =>{
+    let rawData : Record<string,any> = {
+      day:data.day,
+      overall:data.overall,
+    }
+    if(data.marks){
+      Object.entries(data.marks).map(([subject,mark])=>{
+        rawData[subject] = mark
+      })
+    }
+
+    return rawData;
+  })
 
   return (
     <div className="w-full h-full min-h-[300px]">
@@ -61,7 +69,7 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
           <Line type="monotone" dataKey="overall" name="OVERALL AVERAGE" stroke="#2563EB" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
           <Line type="monotone" dataKey="math" name="Math" stroke="#10B981" strokeWidth={2} dot={false} />
           <Line type="monotone" dataKey="history" name="History" stroke="#A855F7" strokeWidth={2} dot={false} />
-          <Line type="monotone" dataKey="science" name="Science" stroke="#06B6D4" strokeWidth={2} dot={false} />
+          <Line type="monotone" dataKey="hindi" name="Hindi" stroke="#5ba6e4" strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>
