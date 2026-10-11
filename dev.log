@@ -1,0 +1,1035 @@
+nohup: ignoring input
+
+> ch@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.8 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.22.0.2:3000
+- Environments: .env
+✓ Ready in 470ms
+✓ Running next.config.ts took 39ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead.
+
+  To migrate automatically, run:
+  npx @next/codemod@canary middleware-to-proxy .
+
+  Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791194089,
+  exp: 1793786089,
+  jti: '5eeefc16-b032-4f4d-be4c-ec2f543897a6'
+}
+ GET /dashboard/homework 200 in 666ms (next.js: 238ms, proxy.ts: 186ms, application-code: 242ms)
+(node:611488) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ GET /api/student/homework 200 in 3.6s (next.js: 132ms, application-code: 3.5s)
+ GET /api/student/homework 200 in 1030ms (next.js: 11ms, application-code: 1019ms)
+ GET /uploads/1791224864476-National-Income---Important-Board-Questions-(Rajat-Arora-Reference).pdf 404 in 106ms (next.js: 37ms, application-code: 68ms)
+ GET /uploads/1791223439707-part-2_removed.pdf 404 in 76ms (next.js: 8ms, application-code: 68ms)
+ GET /uploads/1791221912729-recommender-system-notes.pdf 404 in 74ms (next.js: 8ms, application-code: 66ms)
+ GET /uploads/1791221912729-recommender-system-notes.pdf 404 in 64ms (next.js: 7ms, application-code: 57ms)
+ GET /uploads/1791200006260-Notes-E-commerce.pdf 404 in 102ms (next.js: 9ms, application-code: 93ms)
+{
+  name: 'Harsh Verma',
+  email: 'hakaigamer5@gmail.com',
+  sub: '1',
+  id: '1',
+  isAdmin: true,
+  iat: 1791219683,
+  exp: 1793811683,
+  jti: '6db13eba-1068-4be4-9290-d76af34a7a6d'
+}
+[
+  { id: 3, name: 'Economics' },
+  { id: 4, name: 'Accounts' },
+  { id: 5, name: 'Business Studies' },
+  { id: 6, name: 'English' }
+]
+ GET /admin 200 in 2.5s (next.js: 45ms, proxy.ts: 41ms, application-code: 2.4s)
+ GET /api/admin/submissions 200 in 3.6s (next.js: 56ms, application-code: 3.6s)
+ GET /api/admin/submissions 200 in 557ms (next.js: 6ms, application-code: 551ms)
+ GET /uploads/submissions/sub-2-1791221744281-Personal-Finance-Unit-2.pdf 404 in 59ms (next.js: 6ms, application-code: 53ms)
+ POST /api/assignments 200 in 3.0s (next.js: 66ms, application-code: 2.9s)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791194089,
+  exp: 1793786089,
+  jti: '5eeefc16-b032-4f4d-be4c-ec2f543897a6'
+}
+ GET /dashboard/homework 200 in 129ms (next.js: 15ms, proxy.ts: 15ms, application-code: 98ms)
+ GET /api/student/homework 200 in 1041ms (next.js: 5ms, application-code: 1035ms)
+ GET /api/student/homework 200 in 1003ms (next.js: 3ms, application-code: 1000ms)
+ GET /api/auth/csrf 200 in 870ms (next.js: 848ms, application-code: 22ms)
+ POST /api/auth/signout 200 in 33ms (next.js: 19ms, application-code: 14ms)
+ GET /login 200 in 112ms (next.js: 20ms, application-code: 92ms)
+ GET /api/student/homework 200 in 2.7s (next.js: 5ms, application-code: 2.7s)
+ GET /api/student/homework 200 in 1033ms (next.js: 5ms, application-code: 1028ms)
+ GET /login 200 in 85ms (next.js: 5ms, application-code: 80ms)
+ GET /login 200 in 96ms (next.js: 6ms, application-code: 90ms)
+ GET / 200 in 135ms (next.js: 25ms, application-code: 110ms)
+{
+  name: 'Harsh Verma',
+  email: 'hakaigamer5@gmail.com',
+  sub: '1',
+  id: '1',
+  isAdmin: true,
+  iat: 1791219683,
+  exp: 1793811683,
+  jti: '6db13eba-1068-4be4-9290-d76af34a7a6d'
+}
+✓ Compiled in 194ms
+ GET / 200 in 31ms (next.js: 8ms, application-code: 24ms)
+[
+  { id: 3, name: 'Economics' },
+  { id: 4, name: 'Accounts' },
+  { id: 5, name: 'Business Studies' },
+  { id: 6, name: 'English' }
+]
+ GET /admin 200 in 2.1s (next.js: 6ms, proxy.ts: 8ms, application-code: 2.1s)
+{
+  name: 'Harsh Verma',
+  email: 'hakaigamer5@gmail.com',
+  sub: '1',
+  id: '1',
+  isAdmin: true,
+  iat: 1791219683,
+  exp: 1793811683,
+  jti: '6db13eba-1068-4be4-9290-d76af34a7a6d'
+}
+✓ Compiled in 201ms
+ GET / 200 in 34ms (next.js: 7ms, application-code: 27ms)
+ GET /login 200 in 52ms (next.js: 9ms, application-code: 43ms)
+[
+  { id: 3, name: 'Economics' },
+  { id: 4, name: 'Accounts' },
+  { id: 5, name: 'Business Studies' },
+  { id: 6, name: 'English' }
+]
+ GET /admin 200 in 2.6s (next.js: 5ms, proxy.ts: 7ms, application-code: 2.6s)
+ GET /login 200 in 90ms (next.js: 7ms, application-code: 83ms)
+ GET / 200 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET /login 200 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET /api/auth/providers 200 in 42ms (next.js: 29ms, application-code: 13ms)
+ GET /api/auth/csrf 200 in 10ms (next.js: 2ms, application-code: 8ms)
+ POST /api/auth/callback/credentials 200 in 1954ms (next.js: 3ms, application-code: 1952ms)
+ GET /api/auth/session 200 in 38ms (next.js: 27ms, application-code: 11ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 51ms (next.js: 17ms, proxy.ts: 9ms, application-code: 25ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 66ms (next.js: 9ms, proxy.ts: 16ms, application-code: 42ms)
+ GET /api/student/dashboard 200 in 1071ms (next.js: 43ms, application-code: 1028ms)
+ GET /api/student/dashboard 200 in 1128ms (next.js: 4ms, application-code: 1124ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 36ms (next.js: 5ms, proxy.ts: 7ms, application-code: 24ms)
+ GET /api/student/homework 200 in 1081ms (next.js: 4ms, application-code: 1076ms)
+ GET /api/student/homework 200 in 1025ms (next.js: 4ms, application-code: 1020ms)
+ POST /api/assignments 200 in 2.8s (next.js: 5ms, application-code: 2.8s)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 114ms (next.js: 8ms, proxy.ts: 14ms, application-code: 92ms)
+ GET /api/student/homework 200 in 1013ms (next.js: 4ms, application-code: 1009ms)
+ GET /api/student/homework 200 in 1016ms (next.js: 4ms, application-code: 1012ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 35ms (next.js: 9ms, proxy.ts: 14ms, application-code: 12ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 59ms (next.js: 6ms, proxy.ts: 13ms, application-code: 40ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 60ms (next.js: 6ms, proxy.ts: 11ms, application-code: 43ms)
+ GET /api/student/dashboard 200 in 2.6s (next.js: 7ms, application-code: 2.6s)
+ GET /api/student/dashboard 200 in 1009ms (next.js: 5ms, application-code: 1005ms)
+{
+  name: 'Harsh Verma',
+  email: 'hakaigamer5@gmail.com',
+  sub: '1',
+  id: '1',
+  isAdmin: true,
+  iat: 1791219683,
+  exp: 1793811683,
+  jti: '6db13eba-1068-4be4-9290-d76af34a7a6d'
+}
+[
+  { id: 3, name: 'Economics' },
+  { id: 4, name: 'Accounts' },
+  { id: 5, name: 'Business Studies' },
+  { id: 6, name: 'English' }
+]
+ GET /admin 200 in 2.8s (next.js: 7ms, proxy.ts: 12ms, application-code: 2.8s)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 183ms (next.js: 8ms, proxy.ts: 13ms, application-code: 162ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 359ms (next.js: 4ms, application-code: 354ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 25ms (next.js: 3ms, application-code: 22ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 72ms (next.js: 4ms, proxy.ts: 6ms, application-code: 63ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 29ms (next.js: 4ms, application-code: 25ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 29ms (next.js: 4ms, application-code: 25ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 74ms (next.js: 6ms, proxy.ts: 11ms, application-code: 58ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 15ms (next.js: 2ms, application-code: 12ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 15ms (next.js: 2ms, application-code: 13ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 42ms (next.js: 3ms, proxy.ts: 5ms, application-code: 34ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 26ms (next.js: 4ms, application-code: 22ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 26ms (next.js: 4ms, application-code: 22ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 89ms (next.js: 6ms, proxy.ts: 10ms, application-code: 72ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 22ms (next.js: 4ms, application-code: 18ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 18ms (next.js: 2ms, application-code: 16ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 99ms (next.js: 8ms, proxy.ts: 13ms, application-code: 78ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 36ms (next.js: 5ms, application-code: 32ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 24ms (next.js: 4ms, application-code: 20ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 65ms (next.js: 9ms, proxy.ts: 12ms, application-code: 45ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 110ms (next.js: 5ms, application-code: 105ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 27ms (next.js: 4ms, application-code: 24ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 60ms (next.js: 3ms, proxy.ts: 6ms, application-code: 51ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 27ms (next.js: 4ms, application-code: 23ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 25ms (next.js: 4ms, application-code: 21ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 87ms (next.js: 6ms, proxy.ts: 10ms, application-code: 72ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 29ms (next.js: 4ms, application-code: 24ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 28ms (next.js: 4ms, application-code: 24ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 95ms (next.js: 6ms, proxy.ts: 11ms, application-code: 78ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 31ms (next.js: 4ms, application-code: 26ms)
+Failed to fetch homework: Error [PrismaClientKnownRequestError]: 
+Invalid `database.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__1r7ffbx._.js:162:48
+
+  159     });
+  160 }
+  161 // 2. Look up the student's ID based on their login email
+→ 162 const student = await database.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/homework/route.ts:21:44)
+    at async GET (app/api/student/homework/route.ts:21:21)
+  19 |
+  20 |     // 2. Look up the student's ID based on their login email
+> 21 |     const student = await database.student.findUnique({
+     |                                            ^
+  22 |       where: { email: session.user.email }
+  23 |     });
+  24 | {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/homework 500 in 26ms (next.js: 4ms, application-code: 22ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 29ms (next.js: 7ms, proxy.ts: 11ms, application-code: 11ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard/homework 200 in 53ms (next.js: 6ms, proxy.ts: 10ms, application-code: 37ms)
+{
+  name: 'Aayu',
+  email: 'a65657668@gmail.com',
+  sub: '2',
+  id: '2',
+  isAdmin: false,
+  iat: 1791226488,
+  exp: 1793818488,
+  jti: '486644aa-4afc-49a3-84d7-a620879db48d'
+}
+ GET /dashboard 200 in 52ms (next.js: 6ms, proxy.ts: 9ms, application-code: 37ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 34ms (next.js: 4ms, application-code: 29ms)
+Dashboard API Error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.student.findUnique()` invocation in
+/home/dragoultra/Desktop/Coding/ch/.next/dev/server/chunks/[root-of-the-server]__202-r_w._.js:160:46
+
+  157         status: 401
+  158     });
+  159 }
+→ 160 const student = await prisma.student.findUnique(
+getaddrinfo EAI_AGAIN ep-soft-union-b55o9ix2.c-7.us-east-2.aws.neon.tech
+    at <unknown> (app/api/student/dashboard/route.ts:16:42)
+    at async GET (app/api/student/dashboard/route.ts:16:21)
+  14 |     }
+  15 |
+> 16 |     const student = await prisma.student.findUnique({
+     |                                          ^
+  17 |       where: { email: session.user.email },
+  18 |       include: {
+  19 |         submissions: { {
+  code: 'EAI_AGAIN',
+  meta: { modelName: 'Student' },
+  clientVersion: '7.10.0'
+}
+ GET /api/student/dashboard 500 in 28ms (next.js: 4ms, application-code: 24ms)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+[browser] StudentDashboardService Error: Error: Error: Internal Server Error
+    at StudentDashboardService.getDashboardMetrics (app/services/StudentDashboardService.ts:21:31)
+    at async DashboardPage.useEffect.loadDashboardData (app/dashboard/page.tsx:24:22)
+  19 |     try {
+  20 |       const response = await fetch(this.baseUrl);
+> 21 |       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+     |                               ^
+  22 |       
+  23 |       const result = await response.json();
+  24 |       if (!result.success) return null; (app/services/StudentDashboardService.ts:28:15)
+ GET /api/auth/csrf 200 in 45ms (next.js: 33ms, application-code: 12ms)
+ POST /api/auth/signout 200 in 16ms (next.js: 3ms, application-code: 14ms)
+ GET /login 200 in 51ms (next.js: 3ms, application-code: 48ms)
+ GET /login 200 in 10ms (next.js: 4ms, application-code: 6ms)
+ GET /login 200 in 45ms (next.js: 7ms, application-code: 38ms)
+ GET /login 200 in 16ms (next.js: 5ms, application-code: 11ms)
+ GET /login 200 in 41ms (next.js: 5ms, application-code: 35ms)
+ GET /api/auth/providers 200 in 33ms (next.js: 24ms, application-code: 9ms)
+ GET /api/auth/csrf 200 in 12ms (next.js: 2ms, application-code: 9ms)
+ POST /api/auth/callback/credentials 401 in 14ms (next.js: 3ms, application-code: 11ms)

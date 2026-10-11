@@ -6,7 +6,7 @@ import {
 } from 'recharts';
 
 export interface PerformanceDataPoint {
-  week: string;
+  day:string,
   overall: number;
   math: number;
   history: number;
@@ -18,22 +18,17 @@ interface PerformanceChartProps {
 }
 
 const DUMMY_DATA: PerformanceDataPoint[] = [
-  { week: 'Week 1', overall: 50, math: 10, history: 42, science: 35 },
-  { week: 'Week 2', overall: 60, math: 45, history: 30, science: 55 },
-  { week: 'Week 3', overall: 65, math: 60, history: 50, science: 45 },
-  { week: 'Week 4', overall: 60, math: 55, history: 50, science: 40 },
-  { week: 'Week 5', overall: 59, math: 45, history: 30, science: 40 },
-  { week: 'Week 6', overall: 70, math: 75, history: 60, science: 63 },
-  { week: 'Week 7', overall: 73, math: 68, history: 78, science: 55 },
-  { week: 'Week 8', overall: 75, math: 85, history: 40, science: 80 },
-  { week: 'Week 9', overall: 73, math: 78, history: 65, science: 43 },
-  { week: 'Week 10', overall: 80, math: 80, history: 75, science: 85 },
-  { week: 'Week 11', overall: 80, math: 95, history: 55, science: 65 },
-  { week: 'Week 12', overall: 70, math: 75, history: 58, science: 52 },
+  { day: 'day 1', overall: 50, math: 10, history: 42, science: 35 },
+  { day: 'day 2', overall: 60, math: 45, history: 30, science: 55 },
+  { day: 'day 3', overall: 65, math: 60, history: 50, science: 45 },
+  { day: 'day 4', overall: 60, math: 55, history: 50, science: 40 },
+  { day: 'day 5', overall: 59, math: 45, history: 30, science: 40 },
+  { day: 'day 6', overall: 70, math: 75, history: 60, science: 63 },
+  { day: 'day 7', overall: 73, math: 68, history: 78, science: 55 },
 ];
 
 export function PerformanceChart({ data }: PerformanceChartProps) {
-  const chartData = data || DUMMY_DATA;
+  const chartData = DUMMY_DATA;
 
   return (
     <div className="w-full h-full min-h-[300px]">
@@ -44,7 +39,7 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
           <XAxis 
-            dataKey="week" 
+            dataKey="day" 
             stroke="#9CA3AF" 
             tick={{ fill: '#9CA3AF', fontSize: 12 }} 
             tickLine={false}

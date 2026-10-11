@@ -30,7 +30,12 @@ export async function GET() {
     // 1. Calculate the new simplified metrics
     // 1. Calculate the actual metrics
     // Total assigned is all assignments in the system (or student.submissions.length if targeted)
-    const totalAssigned = await prisma.assignment.count();
+    const id = student.id;
+    const totalAssigned = await prisma.submission.count({
+      where:{
+        studentId : id
+      }
+    });
     
     // FIX: Only count submissions where the score is > 0 (1 = submitted, 2 = checked)
     const actualSubmissions = student.submissions.filter(sub => sub.score > 0);
