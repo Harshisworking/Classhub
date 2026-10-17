@@ -1,3 +1,5 @@
+import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+
 export interface TestSubmission {
   id: string;
   studentName: string;
@@ -7,39 +9,59 @@ export interface TestSubmission {
   score: number | null;
 }
 
+export interface Student {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  avgScore: number;
+  createdAt: string;
+  isAdmin: boolean;
+}
+
+export interface Assignment {
+  id: number;
+  title: string;
+  type: string;
+  inputMode: string;
+  maxScore: number;
+  textContent: string;
+  fileUrl: string | null;
+  subjectId: number;
+  createdAt: string;
+}
+
+export interface TestSubmissionDetail {
+  id: number;
+  score: number;
+  studentFileUrl: string | null;
+  studentId: number;
+  assignmentId: number;
+  createdAt: string;
+  student: Student;
+  assignment: Assignment;
+}
+
 export class TestSubmissionService {
   // Simulate fetching data from your backend
   public async getSubmissions(): Promise<TestSubmission[]> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve([
-          {
-            id: 'ts1',
-            studentName: 'Zaqi',
-            testName: 'French Revolution & Napoleonic Era Quiz',
-            dateSubmitted: 'Oct 1, 2026',
-            status: 'Pending',
-            score: null,
-          },
-          {
-            id: 'ts2',
-            studentName: 'Husna',
-            testName: 'Cellular Respiration Lab Final',
-            dateSubmitted: 'Sep 30, 2026',
-            status: 'Graded',
-            score: 92,
-          },
-          {
-            id: 'ts3',
-            studentName: 'Aayu',
-            testName: 'Quarterly Midterm Exam (Units 1-4)',
-            dateSubmitted: 'Sep 29, 2026',
-            status: 'Pending',
-            score: null,
-          },
-        ]);
-      }, 800);
-    });
+    const response = await fetch("api/admin/testSubmissions");
+
+    const result = (await response.json()).assignedWork;
+
+    const finalResult = result.map((item: TestSubmissionDetail) => {
+      return {
+        id: item.id,
+        studentName: item.student.name,
+        testName: item.assignment.title,
+        dateSubmitted: item.createdAt,
+        status: 'Pending',
+        score: item.score,
+      }
+    })
+
+
+    return finalResult
   }
 
   // Simulate a database mutation to update the score
