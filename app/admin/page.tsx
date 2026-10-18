@@ -19,7 +19,6 @@ export default async function AdminPage() {
   }));
 
   const dbSubjects = await adminService.getSubjects();
-  console.log(dbSubjects)
 
   // 4. Render the interactive Client Component and pass it the secure data
   return <AdminDashboardClient subjects={dbSubjects} initialStudents={formattedStudents} />;

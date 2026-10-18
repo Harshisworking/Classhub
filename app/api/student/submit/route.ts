@@ -3,11 +3,14 @@ import { getServerSession } from 'next-auth';
 import { Database } from '@/lib/Database'; // Ensure this path matches your project structure
 import { promises as fs } from 'fs';
 import path from 'path';
+import { EmailService } from '@/app/services/EmailService';
 
 // Get the pre-configured Prisma client instance through your Singleton class
 const prisma = Database.getInstance();
 
 export async function POST(req: NextRequest) {
+
+  console.log("backend tak toh phoch rahi hian naa request")
   try {
     const session = await getServerSession();
     if (!session?.user?.email) {
@@ -24,6 +27,11 @@ export async function POST(req: NextRequest) {
 
     const formData = await req.formData();
     const assignmentId = parseInt(formData.get('assignmentId') as string, 10);
+    const assignmentDetails = await prisma.assignment.findUnique(
+      {
+        where:{id:assignmentId}
+      }
+    )
     const file = formData.get('file') as File;
 
     if (!assignmentId || !file) {
@@ -54,6 +62,11 @@ export async function POST(req: NextRequest) {
         studentFileUrl: fileUrl, // <--- SAVES THE STUDENT'S FILE URL TO THE DB
       },
     });
+
+    if(assignmentDetails){
+      const emailService = new EmailService();
+      await emailService.sendSubmissionAlert(student.name, assignmentDetails.title);
+    }
 
     return NextResponse.json({ success: true, fileUrl, updatedSubmission });
 

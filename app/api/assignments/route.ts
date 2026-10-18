@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { AdminService } from '../../services/AdminService';
+import { EmailService } from '@/app/services/EmailService';
+import {Database} from '@/lib/Database'
 
 export async function POST(req: NextRequest) {
   try {
+    const db = Database.getInstance();
     // 1. Parse the incoming multipart form data
     const formData = await req.formData();
     
@@ -14,8 +17,19 @@ export async function POST(req: NextRequest) {
     const subjectId = parseInt(formData.get('subjectId') as string, 10);
     const studentId = parseInt(formData.get('studentId') as string, 10); 
 
+    const studentDetails = await db.student.findUnique({
+      where:{id:studentId}
+    })
+
+    const subjectDetails = await db.subject.findUnique(
+      {
+        where:{id:subjectId}
+      }
+    )
+
+
     let fileUrl: string | undefined = undefined;
-    let textContent: string | undefined = undefined;
+    let textContent: string | "PDF given on platform" = "PDF given on platform";
 
     // 2. Handle Text vs PDF logic
     if (inputMode === 'TEXT') {
@@ -56,6 +70,11 @@ export async function POST(req: NextRequest) {
       textContent,
       fileUrl,
     });
+
+    if(subjectDetails && studentDetails){
+      const emailClient = new EmailService();
+      await emailClient.sendNewAssignedAlert(type,studentDetails.email,textContent,subjectDetails?.name,title)
+    }
 
     return NextResponse.json({ success: true, result });
 
