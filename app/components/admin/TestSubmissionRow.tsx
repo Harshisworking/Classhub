@@ -1,85 +1,87 @@
-'use client';
+"use client"
 
-import React, { useState } from 'react';
-import { TestSubmission } from '../../services/TestSubmissionService';
+import { TestSubmission } from "@/app/services/TestSubmissionService";
+import React, { useState, useEffect } from "react";
 
 interface TestSubmissionRowProps {
   submission: TestSubmission;
-  onUpdateScore: (id: string, score: number) => void;
-  onViewAnswers: (id: string) => void;
   isUpdating: boolean;
+  onUpdateScore: (id: number, score: number) => void;
+  onViewAnswers: (id: number) => void;
 }
 
-export function TestSubmissionRow({ submission, onUpdateScore, onViewAnswers, isUpdating }: TestSubmissionRowProps) {
-  const [scoreInput, setScoreInput] = useState<string>('');
+export function TestSubmissionRow({
+  submission,
+  isUpdating,
+  onUpdateScore,
+  onViewAnswers,
+}: TestSubmissionRowProps) {
+  const [scoreInput, setScoreInput] = useState<string>(
+    submission.score !== null && submission.score !== undefined ? submission.score.toString() : ''
+  );
 
-  const handleSubmitScore = () => {
-    const numericScore = parseInt(scoreInput, 10);
-    if (!isNaN(numericScore) && numericScore >= 0 && numericScore <= 100) {
-      onUpdateScore(submission.id, numericScore);
-    } else {
-      alert('Please enter a valid percentage between 0 and 100.');
+  // Sync internal state if the submission score prop is updated from parent
+  useEffect(() => {
+    if (submission.score !== null && submission.score !== undefined) {
+      setScoreInput(submission.score.toString());
+    }
+  }, [submission.score]);
+
+  const handleScoreSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (scoreInput.trim() === '') return;
+    
+    const parsedScore = parseFloat(scoreInput);
+    if (!isNaN(parsedScore)) {
+      onUpdateScore(submission.id, parsedScore);
     }
   };
 
   return (
     <tr className="border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
-      <td className="p-4 font-medium text-white">{submission.studentName}</td>
-      <td className="p-4 text-gray-300 font-medium">{submission.testName}</td>
+      <td className="p-4 text-gray-200 font-medium">{submission.studentName}</td>
+      <td className="p-4 text-gray-300">{submission.testName}</td>
       <td className="p-4 text-gray-400 text-sm">{submission.dateSubmitted}</td>
       <td className="p-4">
-        <span className={`text-xs font-bold px-2 py-1 rounded border ${
-          submission.status === 'Graded' 
-            ? 'bg-green-900 text-green-300 border-green-700' 
-            : 'bg-orange-900 text-orange-300 border-orange-700'
-        }`}>
+        <span
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            submission.status === 'Graded'
+              ? 'bg-green-900/50 text-green-400 border border-green-800'
+              : 'bg-yellow-900/50 text-yellow-400 border border-yellow-800'
+          }`}
+        >
           {submission.status}
         </span>
       </td>
-      <td className="p-4 flex justify-end gap-3 items-center">
-        
-        {/* View Answers Button */}
-        <button 
-          onClick={() => onViewAnswers(submission.id)}
-          className="flex items-center gap-1 text-xs font-semibold px-3 py-2 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors"
-        >
-          View Answers
-        </button>
-
-        {/* Score Assignment Area */}
-        {submission.status === 'Graded' ? (
-          <div className="flex items-center justify-center w-32 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-green-400 font-bold text-sm">
-            {submission.score}%
-          </div>
-        ) : (
-          <div className="flex items-center gap-2 w-48">
-            <div className="relative flex-1">
-              <input
-                type="number"
-                min="0"
-                max="100"
-                value={scoreInput}
-                onChange={(e) => setScoreInput(e.target.value)}
-                placeholder="Score"
-                className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg py-1.5 pl-3 pr-6 focus:outline-none focus:border-blue-500"
-                disabled={isUpdating}
-              />
-              <span className="absolute right-2 top-1.5 text-gray-500 text-sm">%</span>
-            </div>
-            
-            <button 
-              onClick={handleSubmitScore}
-              disabled={isUpdating || !scoreInput}
-              className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${
-                !scoreInput || isUpdating
-                  ? 'bg-blue-600/50 text-white/50 border-blue-500/50 cursor-not-allowed'
-                  : 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700'
-              }`}
+      <td className="p-4 text-right pr-6">
+        <div className="flex items-center justify-end space-x-3">
+          <button
+            onClick={() => onViewAnswers(submission.id)}
+            className="text-sm text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+          >
+            View
+          </button>
+          
+          <form onSubmit={handleScoreSubmit} className="flex items-center space-x-2">
+            <input
+              type="number"
+              min="0"
+              max="100"
+              value={scoreInput}
+              onChange={(e) => setScoreInput(e.target.value)}
+              placeholder="Score"
+              disabled={isUpdating}
+              className="w-16 bg-gray-950 border border-gray-700 rounded px-2 py-1 text-sm text-gray-200 text-center focus:outline-none focus:border-indigo-500 disabled:opacity-50"
+            />
+            <button
+              type="submit"
+              disabled={isUpdating || scoreInput === ''}
+              className="px-3 py-1 text-xs font-medium bg-indigo-600 hover:bg-indigo-500 text-white rounded transition-colors disabled:opacity-50"
             >
-              {isUpdating ? 'Saving...' : 'Assign'}
+              {isUpdating ? '...' : 'Save'}
             </button>
-          </div>
-        )}
+          </form>
+        </div>
       </td>
     </tr>
   );

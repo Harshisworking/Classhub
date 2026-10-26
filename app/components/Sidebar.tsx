@@ -57,6 +57,16 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           <span className="text-2xl mb-2">📋</span>
           <span className="text-xs font-bold text-center">HOMEWORK</span>
         </Link>
+
+        {/* Tests Link */}
+        <Link 
+          href="/dashboard/tests" 
+          onClick={() => setIsOpen(false)}
+          className="flex flex-col items-center justify-center p-4 hover:bg-gray-800 rounded-lg cursor-pointer transition-colors"
+        >
+          <span className="text-2xl mb-2">📝</span>
+          <span className="text-xs font-bold text-center">MY TESTS</span>
+        </Link>
       </nav>
     </aside>
   );

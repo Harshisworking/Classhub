@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { StudentRow } from './StudentRow';
 import { AssignmentModal } from './AssignmentModal';
+import { TestModal } from './TestModal'; // Import TestModal
 import { StudentStatsModal } from './StudentStatsModal';
 
 export function StudentListTab({ 
@@ -14,9 +15,9 @@ export function StudentListTab({
 }) {
   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
   
-  // Assignment Modal State
+  // Modal State
   const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
-  const [assignModalStudentId, setAssignModalStudentId] = useState<number>(0); // NEW: Track the Student ID
+  const [assignModalStudentId, setAssignModalStudentId] = useState<number>(0);
   const [assignModalStudentName, setAssignModalStudentName] = useState('');
   const [assignModalType, setAssignModalType] = useState<'Test' | 'Homework'>('Homework');
 
@@ -39,7 +40,6 @@ export function StudentListTab({
     }
   };
 
-  // NEW: Updated to accept `id` as the first parameter
   const openAssignModal = (id: number, studentName: string, type: 'Test' | 'Homework') => {
     setAssignModalStudentId(id);
     setAssignModalStudentName(studentName);
@@ -91,14 +91,25 @@ export function StudentListTab({
         </table>
       </div>
 
-      <AssignmentModal 
-        isOpen={isAssignModalOpen}
-        onClose={() => setIsAssignModalOpen(false)}
-        studentId={assignModalStudentId} // NEW: Pass the ID into the modal
-        studentName={assignModalStudentName}
-        assignmentType={assignModalType}
-        subjects={subjects} 
-      />
+      {/* Conditionally render modal depending on type */}
+      {assignModalType === 'Test' ? (
+        <TestModal
+          isOpen={isAssignModalOpen}
+          onClose={() => setIsAssignModalOpen(false)}
+          studentId={assignModalStudentId}
+          studentName={assignModalStudentName}
+          subjects={subjects}
+        />
+      ) : (
+        <AssignmentModal 
+          isOpen={isAssignModalOpen}
+          onClose={() => setIsAssignModalOpen(false)}
+          studentId={assignModalStudentId}
+          studentName={assignModalStudentName}
+          assignmentType="Homework"
+          subjects={subjects} 
+        />
+      )}
 
       <StudentStatsModal
         isOpen={isStatsModalOpen}
