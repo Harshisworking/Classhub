@@ -1,7 +1,12 @@
-import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+'use client';
+
+import { type } from "os";
+
 
 export interface TestSubmission {
-  id: string;
+  id: number;
+  rawId: number;
+  entityType: 'assignment' | 'test';
   studentName: string;
   testName: string;
   dateSubmitted: string;
@@ -13,7 +18,6 @@ export interface Student {
   id: number;
   name: string;
   email: string;
-  password: string;
   avgScore: number;
   createdAt: string;
   isAdmin: boolean;
@@ -25,51 +29,113 @@ export interface Assignment {
   type: string;
   inputMode: string;
   maxScore: number;
-  textContent: string;
   fileUrl: string | null;
-  subjectId: number;
-  createdAt: string;
 }
 
-export interface TestSubmissionDetail {
+export interface Test {
+  id: number;
+  title: string;
+  format: string;
+  maxScore: number;
+  fileUrl: string | null;
+}
+
+export interface RawSubmissionItem {
   id: number;
   score: number;
   studentFileUrl: string | null;
   studentId: number;
-  assignmentId: number;
+  assignmentId?: number;
+  testId?: number;
   createdAt: string;
   student: Student;
-  assignment: Assignment;
+  assignment?: Assignment;
+  test?: Test;
+  isSubmitted:boolean
+}
+
+export interface viewAnswersResponse {
+  id: number,
+  text: string,
+  option1: string,
+  option2: string,
+  option3: string,
+  option4: string,
+  answer: string,
+  ansSelected: string
 }
 
 export class TestSubmissionService {
-  // Simulate fetching data from your backend
-  public async getSubmissions(): Promise<TestSubmission[]> {
-    const response = await fetch("api/admin/testSubmissions");
+  private readonly baseUrl = '/api/admin/testSubmissions';
 
-    const result = (await response.json()).assignedWork;
-
-    const finalResult = result.map((item: TestSubmissionDetail) => {
-      return {
-        id: item.id,
-        studentName: item.student.name,
-        testName: item.assignment.title,
-        dateSubmitted: item.createdAt,
-        status: 'Pending',
-        score: item.score,
-      }
+  public async viewAnswers(testId:number,): Promise<viewAnswersResponse[]|undefined> {    
+    const response= await fetch(`${this.baseUrl}/viewPages/${testId}`,{
+      method:'GET',
+      headers: { 'Content-Type': 'application/json' }
     })
 
+    if(!response.ok){
+      return 
+    }
 
-    return finalResult
+    const data = await response.json();
+
+    return data.data;
   }
 
-  // Simulate a database mutation to update the score
-  public async updateScore(id: string, score: number): Promise<boolean> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true); // Return true assuming the DB update succeeded
-      }, 500);
-    });
+  public async getSubmissions(): Promise<TestSubmission[]> {
+    try {
+      const response = await fetch(this.baseUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch submissions: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const rawList: RawSubmissionItem[] = Array.isArray(data) ? data : (data.assignedWork || []);
+
+      return rawList.map((item) => this.mapToUIModel(item));
+    } catch (error) {
+      console.error("TestSubmissionService.getSubmissions error:", error);
+      return [];
+    }
+  }
+
+  public async updateScore(id: number, score: number): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.baseUrl}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ score }),
+      });
+
+      return response.ok;
+    } catch (error) {
+      console.error("Failed to submit score:", error);
+      return false;
+    }
+  }
+
+  private mapToUIModel(item: RawSubmissionItem): TestSubmission {
+    const isAssignment = Boolean(item.assignmentId || item.assignment);
+    const entity = isAssignment ? item.assignment : item.test;
+    const prefix = isAssignment ? 'assignment' : 'test';
+
+    // Status: If score is greater than 0, mark as Graded
+    const isGraded = (item.isSubmitted);
+
+    return {
+      id: item.id,
+      rawId: item.id,
+      entityType: prefix,
+      studentName: item.student?.name || 'Unknown Student',
+      testName: entity?.title || 'Untitled Test',
+      dateSubmitted: new Date(item.createdAt).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      }),
+      status: isGraded ? 'Graded' : 'Pending',
+      score: item.score,
+    };
   }
 }

@@ -17,20 +17,27 @@ model Student {
 
   submissions       Submission[]
   subjectSubscribed Subjectsubscribed[]
+  testSubmission    TestSubmission[]
 }
 
 model Subject {
   id   Int    @id @default(autoincrement())
   name String @unique
 
-  // A subject has many assignments (both tests and homework)
   assignments       Assignment[]
   subjectSubscribed Subjectsubscribed[]
+  tests             Test[]
+}
+
+// Discriminator for Tests: strictly PDF or MCQ
+enum TestFormat {
+  PDF
+  MCQ
 }
 
 enum AssignmentType {
-  TEST
   HOMEWORK
+  CLASSWORK
 }
 
 enum InputMode {
@@ -38,31 +45,29 @@ enum InputMode {
   PDF
 }
 
-// 1. The Unified Assignment Model (Replaces 'Test')
+// 1. Regular Homework & Assignments
 model Assignment {
   id        Int            @id @default(autoincrement())
   title     String
-  type      AssignmentType // TEST or HOMEWORK
-  inputMode InputMode // TEXT or PDF
+  type      AssignmentType
+  inputMode InputMode
   maxScore  Float          @default(100)
 
   textContent String? @db.Text
-  fileUrl     String? // e.g., "/uploads/chapter5.pdf"
+  fileUrl     String?
 
   subjectId Int
   subject   Subject @relation(fields: [subjectId], references: [id])
 
   createdAt DateTime @default(now())
 
-  // An assignment will have many student submissions
   submissions Submission[]
 }
 
-// 2. The Junction Table (Tracks results for both Tests and Homework)
 model Submission {
   id             Int     @id @default(autoincrement())
   score          Float
-  studentFileUrl String? // Add this field to store the student's uploaded work
+  studentFileUrl String?
 
   studentId Int
   student   Student @relation(fields: [studentId], references: [id])
@@ -72,7 +77,6 @@ model Submission {
 
   createdAt DateTime @default(now())
 
-  // Ensures a student cannot submit two scores for the exact same assignment
   @@unique([studentId, assignmentId])
 }
 
@@ -86,4 +90,59 @@ model Subjectsubscribed {
   subject   Subject @relation(fields: [subjectId], references: [id])
 
   @@unique([studentId, subjectId])
+}
+
+// 2. Strict Test Model (Either PDF or MCQ)
+model Test {
+  id       Int        @id @default(autoincrement())
+  title    String
+  format   TestFormat // Strictly 'PDF' or 'MCQ'
+  maxScore Float      @default(100)
+  duration Int        @default(0)
+
+  // Filled ONLY if format == PDF
+  fileUrl String?
+
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  // Filled ONLY if format == MCQ
+  questions      Questions[]
+  testSubmission TestSubmission[]
+}
+
+model TestSubmission {
+  id             Int     @id @default(autoincrement())
+  score          Float
+  studentFileUrl String? // For PDF test responses (or null if auto-graded MCQ)
+
+  studentAnswers String?
+
+  startTime DateTime?
+
+  studentId Int
+  student   Student @relation(fields: [studentId], references: [id])
+
+  testId Int
+  test   Test @relation(fields: [testId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  isSubmitted      Boolean     @default(false)
+
+  @@unique([studentId, testId])
+}
+
+model Questions {
+  id           Int    @id @default(autoincrement())
+  testId       Int
+  test         Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
+  questionText String @db.Text
+  option1      String
+  option2      String
+  option3      String
+  option4      String
+  answer       String // Stores 'option1', 'option2', 'option3', or 'option4'
 }

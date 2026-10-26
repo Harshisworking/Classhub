@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-import { title } from 'process';
 
 export class EmailService {
     private transporter: nodemailer.Transporter;

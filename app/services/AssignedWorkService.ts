@@ -22,7 +22,10 @@ export class AssignedWorkService {
       }
 
       const data = await response.json();
-      return data.assignedWork.map((item: any) => this.mapToUIModel(item));
+      
+      // Handle both array response directly or nested assignedWork array
+      const rawItems = Array.isArray(data) ? data : (data.assignedWork || []);
+      return rawItems.map((item: any) => this.mapToUIModel(item));
     } catch (error) {
       console.error("AssignedWorkService failed:", error);
       return [];
@@ -30,12 +33,18 @@ export class AssignedWorkService {
   }
 
   private mapToUIModel(rawDbRecord: any): AssignedWorkItem {
+    const isAssignment = Boolean(rawDbRecord.assignmentId || rawDbRecord.assignment);
+    const itemData = isAssignment ? rawDbRecord.assignment : rawDbRecord.test;
+    
+    // Prefix ID with record type to prevent React key collision across assignments/tests
+    const prefix = isAssignment ? 'assignment' : 'test';
+    const uniqueId = `${prefix}-${rawDbRecord.id}`;
+
     return {
-      id: rawDbRecord.id.toString(),
+      id: uniqueId,
       studentName: rawDbRecord.student?.name || 'Unknown Student',
-      type: rawDbRecord.assignment?.type || 'HOMEWORK',
-      title: rawDbRecord.assignment?.title || 'Untitled',
-      // Format to match "Oct 1, 2026"
+      type: isAssignment ? 'HOMEWORK' : 'TEST',
+      title: itemData?.title || 'Untitled',
       dateAssigned: new Date(rawDbRecord.createdAt).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',

@@ -1,35 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { AdminService } from '../../services/AdminService';
+import { AdminService } from '../../../services/AdminService';
 import { EmailService } from '@/app/services/EmailService';
-import {Database} from '@/lib/Database'
+import { Database } from '@/lib/Database';
 
 export async function POST(req: NextRequest) {
   try {
     const db = Database.getInstance();
+    
     // 1. Parse the incoming multipart form data
     const formData = await req.formData();
     
     const title = formData.get('title') as string;
-    const type = formData.get('type') as 'TEST' | 'HOMEWORK';
+    const type = (formData.get('type') as 'HOMEWORK' | 'CLASSWORK') || 'HOMEWORK';
     const inputMode = formData.get('inputMode') as 'TEXT' | 'PDF';
     const subjectId = parseInt(formData.get('subjectId') as string, 10);
     const studentId = parseInt(formData.get('studentId') as string, 10); 
 
     const studentDetails = await db.student.findUnique({
-      where:{id:studentId}
-    })
+      where: { id: studentId }
+    });
 
-    const subjectDetails = await db.subject.findUnique(
-      {
-        where:{id:subjectId}
-      }
-    )
-
+    const subjectDetails = await db.subject.findUnique({
+      where: { id: subjectId }
+    });
 
     let fileUrl: string | undefined = undefined;
-    let textContent: string | "PDF given on platform" = "PDF given on platform";
+    let textContent: string = "PDF given on platform";
 
     // 2. Handle Text vs PDF logic
     if (inputMode === 'TEXT') {
@@ -53,14 +51,13 @@ export async function POST(req: NextRequest) {
       // Save the file to the local disk
       await fs.writeFile(filePath, buffer);
       
-      // The public URL that the browser can use to download it
+      // Public URL accessible by client
       fileUrl = `/uploads/${fileName}`;
     }
 
-    // 3. Instantiate your OOP Service and save to DB
+    // 3. Save Assignment using AdminService
     const adminService = new AdminService();
     
-    // Pass ALL required properties, including studentId
     const result = await adminService.createAssignment({
       title,
       type,
@@ -71,9 +68,16 @@ export async function POST(req: NextRequest) {
       fileUrl,
     });
 
-    if(subjectDetails && studentDetails){
+    // 4. Trigger Email Notification
+    if (subjectDetails && studentDetails) {
       const emailClient = new EmailService();
-      await emailClient.sendNewAssignedAlert(type,studentDetails.email,textContent,subjectDetails?.name,title)
+      await emailClient.sendNewAssignedAlert(
+        type,
+        studentDetails.email,
+        textContent,
+        subjectDetails.name,
+        title
+      );
     }
 
     return NextResponse.json({ success: true, result });

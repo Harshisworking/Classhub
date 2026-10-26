@@ -8,20 +8,18 @@ const prisma = Database.getInstance();
 export async function GET() {
   try {
     // Fetch all submissions to see the history of what was assigned to whom
-    const assignedWork = await prisma.submission.findMany({
+    const assignedWork = await prisma.testSubmission.findMany({
       where:{
-        assignment: { type: 'TEST' },
+        isSubmitted:true
       },
       include: {
         student: true,     
-        assignment: true,  
+        test: true,  
       },
       orderBy: {
         createdAt: 'desc' // Newest assignments first
       }
     });
-
-    console.log(assignedWork)
 
     return NextResponse.json({ success: true, assignedWork });
   } catch (error) {

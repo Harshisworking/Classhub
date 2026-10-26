@@ -43,7 +43,7 @@ export function AssignmentModal({ isOpen, onClose, studentId, studentName, assig
         formData.append('file', selectedFile);
       }
 
-      const response = await fetch('/api/assignments', {
+      const response = await fetch('/api/admin/assignments', {
         method: 'POST',
         body: formData, 
       });
