@@ -7,7 +7,7 @@ interface Question {
   id: number;
   questionText: string;
   options: string[];
-  answer: string; // Exact answer string
+  answer: string;
 }
 
 interface McqTestModalProps {
@@ -31,9 +31,7 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Stores selected string answers: { [questionId]: "Selected Option String" }
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
-
   const [showResult, setShowResult] = useState(isCompleted);
   const [scoreStats, setScoreStats] = useState({ correct: 0, total: 0, percentage: 0 });
 
@@ -44,40 +42,43 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
       setIsLoading(true);
       try {
         const api = TestApiService.getInstance();
+        const testData = await api.getTestQuestions(testId);
         
-        // Fetch questions response (or full submission payload if completed)
-        const response = await fetch(`/api/student/tests/${testId}`);
-        const data = await response.json();
-        
-        const qList: Question[] = data.data?.questions || [];
+        const qList: Question[] = testData.questions || [];
         setQuestions(qList);
 
-        // If opening an already completed test, parse saved student answers
-        if (isCompleted || data.data?.isSubmitted) {
+        if (isCompleted || testData.isSubmitted) {
           setShowResult(true);
-          let savedAnswersMap: Record<number, string> = {};
+          const savedAnswersMap: Record<number, string> = {};
+          const studentAnswersList: string[] = testData.studentAnswers || [];
 
-          if (data.data?.studentAnswers) {
-            try {
-              const parsedArray: string[] = typeof data.data.studentAnswers === 'string'
-                ? JSON.parse(data.data.studentAnswers)
-                : data.data.studentAnswers;
-
-              qList.forEach((q, idx) => {
-                if (parsedArray[idx]) {
-                  savedAnswersMap[q.id] = parsedArray[idx];
-                }
-              });
-            } catch (e) {
-              console.error("Error parsing saved student answers:", e);
+          qList.forEach((q, idx) => {
+            if (studentAnswersList[idx] !== undefined && studentAnswersList[idx] !== null) {
+              savedAnswersMap[q.id] = String(studentAnswersList[idx]);
             }
-          }
+          });
 
           setSelectedAnswers(savedAnswersMap);
-          calculateAndSetScore(qList, savedAnswersMap);
+
+          if (testData.score !== undefined) {
+            let correctCount = 0;
+            qList.forEach((q) => {
+              const chosen = savedAnswersMap[q.id];
+              if (chosen && String(chosen).trim() === String(q.answer).trim()) {
+                correctCount++;
+              }
+            });
+            setScoreStats({
+              correct: correctCount,
+              total: qList.length,
+              percentage: Math.round(testData.score),
+            });
+          } else {
+            calculateAndSetScore(qList, savedAnswersMap);
+          }
         }
       } catch (error) {
-        console.error("Failed to load test questions", error);
+        console.error("Failed to load test details", error);
       } finally {
         setIsLoading(false);
       }
@@ -122,7 +123,6 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
     const api = TestApiService.getInstance();
     
     const stats = calculateAndSetScore(questions, selectedAnswers);
-    
     const ansList = questions.map((q) => selectedAnswers[q.id] || "");
 
     await api.submitTest(testId, stats.percentage, ansList);
@@ -152,17 +152,28 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
   const currentQuestion = questions[currentIndex];
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-900 border border-gray-800 rounded-xl w-full max-w-3xl flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 bg-black/80 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div className="bg-gray-900 border-t sm:border border-gray-800 rounded-t-2xl sm:rounded-xl w-full max-w-3xl flex flex-col h-[92vh] sm:h-auto sm:max-h-[90vh]">
         
-        {/* Header */}
-        <div className="flex justify-between items-center p-5 border-b border-gray-800">
-          <div>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
-            <p className="text-xs text-gray-400">Test ID: #{testId}</p>
+        {/* Header - Stacks on small mobile, row on tablet/desktop */}
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center p-4 sm:p-5 border-b border-gray-800 gap-2 sm:gap-4">
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-white line-clamp-1">{title}</h3>
+              <p className="text-xs text-gray-400">Test ID: #{testId}</p>
+            </div>
+
+            {/* Mobile timer display inside header right corner */}
+            {!showResult && (
+              <div className="sm:hidden text-sm font-mono font-bold text-yellow-400 bg-gray-800 border border-gray-700 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                <span>⏱️</span>
+                <span>{formatTime(timeLeft)}</span>
+              </div>
+            )}
           </div>
+
           {!showResult && (
-            <div className="text-lg font-mono font-bold text-yellow-400 bg-gray-800 border border-gray-700 px-4 py-1.5 rounded-lg flex items-center gap-2">
+            <div className="hidden sm:flex text-lg font-mono font-bold text-yellow-400 bg-gray-800 border border-gray-700 px-4 py-1.5 rounded-lg items-center gap-2 self-start sm:self-auto">
               <span>⏱️</span>
               <span>{formatTime(timeLeft)}</span>
             </div>
@@ -170,35 +181,33 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
         </div>
 
         {/* Content Area */}
-        <div className="p-6 overflow-y-auto flex-1 flex flex-col">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col">
           {isLoading ? (
             <div className="flex justify-center items-center py-12 text-gray-400">
-              Loading details...
+              Loading test data...
             </div>
           ) : showResult ? (
-            /* ==================== RESULT SUMMARY & REVIEW SCREEN ==================== */
+            /* ==================== RESULT SUMMARY SCREEN ==================== */
             <div className="space-y-6">
-              {/* Score Summary Box */}
-              <div className="bg-gray-800/80 border border-gray-700 rounded-xl p-6 text-center flex flex-col items-center">
-                <span className="text-4xl mb-2">🎉</span>
-                <h4 className="text-2xl font-bold text-white mb-1">Test Results</h4>
-                <p className="text-gray-400 text-sm mb-4">Here is your performance breakdown:</p>
+              <div className="bg-gray-800/80 border border-gray-700 rounded-xl p-5 sm:p-6 text-center flex flex-col items-center">
+                <span className="text-3xl sm:text-4xl mb-2">🎉</span>
+                <h4 className="text-xl sm:text-2xl font-bold text-white mb-1">Test Results</h4>
+                <p className="text-gray-400 text-xs sm:text-sm mb-4">Here is your performance breakdown:</p>
                 
-                <div className="flex justify-center gap-6 w-full max-w-sm">
+                <div className="flex justify-center gap-4 w-full max-w-sm">
                   <div className="bg-gray-900 p-3 rounded-lg border border-gray-700 flex-1">
                     <p className="text-xs text-gray-400">Score</p>
-                    <p className="text-xl font-bold text-blue-400">{scoreStats.percentage}%</p>
+                    <p className="text-lg sm:text-xl font-bold text-blue-400">{scoreStats.percentage}%</p>
                   </div>
                   <div className="bg-gray-900 p-3 rounded-lg border border-gray-700 flex-1">
                     <p className="text-xs text-gray-400">Correct Answers</p>
-                    <p className="text-xl font-bold text-green-400">{scoreStats.correct} / {scoreStats.total}</p>
+                    <p className="text-lg sm:text-xl font-bold text-green-400">{scoreStats.correct} / {scoreStats.total}</p>
                   </div>
                 </div>
               </div>
 
-              {/* Question Breakdown List */}
               <div className="space-y-4">
-                <h5 className="text-lg font-semibold text-white">Question Review</h5>
+                <h5 className="text-base sm:text-lg font-semibold text-white">Question Review</h5>
                 {questions.map((q, idx) => {
                   const chosenText = selectedAnswers[q.id];
                   const isCorrect = chosenText && String(chosenText).trim() === String(q.answer).trim();
@@ -206,34 +215,34 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
                   return (
                     <div 
                       key={q.id} 
-                      className={`p-4 rounded-xl border ${
+                      className={`p-3.5 sm:p-4 rounded-xl border ${
                         isCorrect 
                           ? 'bg-green-500/5 border-green-500/30' 
                           : 'bg-red-500/5 border-red-500/30'
                       }`}
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <span className="text-sm font-semibold text-gray-300">
+                        <span className="text-xs sm:text-sm font-semibold text-gray-300">
                           Question {idx + 1}
                         </span>
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded ${
+                        <span className={`text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded ${
                           isCorrect ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                         }`}>
                           {isCorrect ? 'Correct' : 'Incorrect'}
                         </span>
                       </div>
 
-                      <p className="text-white font-medium mb-3">{q.questionText}</p>
+                      <p className="text-white text-sm sm:text-base font-medium mb-3">{q.questionText}</p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
                         <div className="bg-gray-900/60 p-2.5 rounded border border-gray-800">
-                          <span className="text-xs text-gray-400 block mb-1">You Chose:</span>
+                          <span className="text-[10px] text-gray-400 block mb-0.5">You Chose:</span>
                           <span className={chosenText ? (isCorrect ? 'text-green-400 font-medium' : 'text-red-400 font-medium') : 'text-gray-500 italic'}>
                             {chosenText || "Not Answered"}
                           </span>
                         </div>
                         <div className="bg-gray-900/60 p-2.5 rounded border border-gray-800">
-                          <span className="text-xs text-gray-400 block mb-1">Correct Answer:</span>
+                          <span className="text-[10px] text-gray-400 block mb-0.5">Correct Answer:</span>
                           <span className="text-green-400 font-medium">{q.answer}</span>
                         </div>
                       </div>
@@ -243,34 +252,33 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
               </div>
             </div>
           ) : (
-            /* ==================== ACTIVE QUESTION SCREEN ==================== */
-            <div className="flex-1 flex flex-col justify-between space-y-6">
+            /* ==================== ACTIVE TEST VIEW ==================== */
+            <div className="flex-1 flex flex-col justify-between space-y-4 sm:space-y-6">
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm font-semibold text-blue-400">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-xs sm:text-sm font-semibold text-blue-400">
                     Question {currentIndex + 1} of {questions.length}
                   </span>
                   {selectedAnswers[currentQuestion?.id] && (
-                    <span className="text-xs font-semibold px-2 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20">
+                    <span className="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded bg-green-500/10 text-green-400 border border-green-500/20">
                       Answered
                     </span>
                   )}
                 </div>
 
-                <div className="bg-gray-800/40 p-5 rounded-lg border border-gray-800 mb-6">
-                  <h4 className="text-lg font-medium text-white">
+                <div className="bg-gray-800/40 p-4 sm:p-5 rounded-lg border border-gray-800 mb-4 sm:mb-6">
+                  <h4 className="text-base sm:text-lg font-medium text-white break-words">
                     {currentQuestion?.questionText}
                   </h4>
                 </div>
 
-                {/* Render Options */}
-                <div className="space-y-3">
+                <div className="space-y-2.5 sm:space-y-3">
                   {currentQuestion?.options.map((optionText, optIndex) => {
                     const isSelected = selectedAnswers[currentQuestion.id] === optionText;
                     return (
                       <label
                         key={optIndex}
-                        className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                        className={`flex items-center gap-3 p-3.5 sm:p-4 rounded-xl border cursor-pointer transition-all ${
                           isSelected
                             ? 'bg-blue-600/20 border-blue-500 text-white shadow-md'
                             : 'bg-gray-800/60 border-gray-700 text-gray-300 hover:bg-gray-700/80 hover:border-gray-600'
@@ -282,26 +290,19 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
                           value={optionText}
                           checked={isSelected}
                           onChange={() => handleOptionSelect(currentQuestion.id, optionText)}
-                          className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-600 bg-gray-700"
+                          className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-600 bg-gray-700 shrink-0"
                         />
-                        <span className="text-sm font-medium">{optionText}</span>
+                        <span className="text-xs sm:text-sm font-medium break-words">{optionText}</span>
                       </label>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Page & Question Navigation */}
-              <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-4">
-                <button
-                  onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
-                  disabled={currentIndex === 0}
-                  className="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 font-medium hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed text-sm transition-colors"
-                >
-                  ← Previous
-                </button>
-
-                <div className="flex items-center gap-1.5 overflow-x-auto max-w-[50%] scrollbar-hide py-1 px-1">
+              {/* Navigation Bar - Redesigned for Mobile (Prev/Next stacked or flexed cleanly) */}
+              <div className="pt-3 border-t border-gray-800/80 flex flex-col gap-3">
+                {/* Horizontal Question Badge Selector */}
+                <div className="flex items-center justify-center gap-1.5 overflow-x-auto w-full scrollbar-hide py-1">
                   {questions.map((q, idx) => {
                     const isAnswered = !!selectedAnswers[q.id];
                     const isCurrent = idx === currentIndex;
@@ -310,7 +311,7 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
                       <button
                         key={q.id}
                         onClick={() => setCurrentIndex(idx)}
-                        className={`w-8 h-8 rounded-lg text-xs font-semibold flex items-center justify-center transition-all ${
+                        className={`w-7 h-7 sm:w-8 sm:h-8 shrink-0 rounded-lg text-xs font-semibold flex items-center justify-center transition-all ${
                           isCurrent
                             ? 'bg-blue-600 text-white ring-2 ring-blue-400'
                             : isAnswered
@@ -324,13 +325,24 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
                   })}
                 </div>
 
-                <button
-                  onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-                  disabled={currentIndex === questions.length - 1}
-                  className="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 font-medium hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed text-sm transition-colors"
-                >
-                  Next →
-                </button>
+                {/* Prev & Next Buttons Row */}
+                <div className="flex items-center justify-between gap-3">
+                  <button
+                    onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                    disabled={currentIndex === 0}
+                    className="flex-1 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 font-medium hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm transition-colors text-center"
+                  >
+                    ← Previous
+                  </button>
+
+                  <button
+                    onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
+                    disabled={currentIndex === questions.length - 1}
+                    className="flex-1 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 font-medium hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm transition-colors text-center"
+                  >
+                    Next →
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -338,10 +350,10 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-gray-800 flex justify-between items-center">
+        <div className="p-3.5 sm:p-4 border-t border-gray-800 flex justify-between items-center gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
           >
             {showResult ? "Close Window" : "Close & Pause"}
           </button>
@@ -349,7 +361,7 @@ export const McqTestModal: React.FC<McqTestModalProps> = ({
             <button
               onClick={() => processAndSubmit(false)}
               disabled={isSubmitting || isLoading}
-              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
+              className="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-colors disabled:opacity-50"
             >
               {isSubmitting ? 'Submitting...' : 'Submit Test'}
             </button>

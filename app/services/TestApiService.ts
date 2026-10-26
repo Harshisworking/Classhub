@@ -26,12 +26,12 @@ export class TestApiService {
       body: JSON.stringify({ testId }),
     });
 
-    // 2. Fetch questions and test details
+    // 2. Fetch questions and student submission details
     const response = await fetch(`/api/student/tests/${testId}`);
     const data = await response.json();
 
-    // Changed data.data to data.data?.questions to return array directly
-    return data.data?.questions || [];
+    // Returns the full payload object: { questions, studentAnswers, isSubmitted, score, maxScore }
+    return data.data || { questions: [], studentAnswers: [], isSubmitted: false, score: 0 };
   }
 
   public async submitTest(testId: number, percentage: number, ansList: string[]) {
